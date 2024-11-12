@@ -1,0 +1,186 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Оценка условий работы</title>
+    <style>
+        body { font-family: Arial, sans-serif; display: flex; justify-content: space-between; padding: 20px; }
+        .criteria { width: 60%; }
+        .criteria label { font-weight: bold; display: block; margin-top: 15px; }
+        .criteria input { margin-right: 5px; }
+        .criteria .options { margin-left: 15px; }
+        .btn-red { color: #ff4c4c; font-weight: bold; }
+        .btn-yellow { color: #ffc107; font-weight: bold; }
+        .btn-green { color: #4caf50; font-weight: bold; }
+        .result { width: 35%; padding: 20px; border-radius: 8px; font-weight: bold; font-size: 1.2em; }
+        .result.bad { background-color: #ffdddd; color: #b30000; }
+        .result.ok { background-color: #fff8d6; color: #b38f00; }
+        .result.good { background-color: #e6ffcc; color: #336600; }
+    </style>
+    <script>
+        function analyze() {
+            let score = 0;
+
+            document.querySelectorAll('input[type="radio"]').forEach(input => {
+                if (input.checked) {
+                    if (input.classList.contains('btn-green')) score += 1;
+                    else if (input.classList.contains('btn-yellow')) score += 0;
+                    else if (input.classList.contains('btn-red')) score -= 1;
+                }
+            });
+
+            let result = document.getElementById("result");
+            
+            if (score > 1) {
+                result.textContent = "Хорошо, можно работать.";
+                result.className = "result good";
+            } else if (score === 0 || score === 1) {
+                result.textContent = "Терпимо, но можно работать.";
+                result.className = "result ok";
+            } else {
+                result.textContent = "Нужно срочно сменить работу.";
+                result.className = "result bad";
+            }
+        }
+    </script>
+</head>
+<body>
+
+<div class="criteria">
+
+    <h1>Оценка условий работы</h1>
+
+    <label>Доход:</label>
+    <div class="options">
+        <input type="radio" name="income" class="btn-green" onclick="analyze()"> Больше 100,000 руб<br>
+        <input type="radio" name="income" class="btn-yellow" onclick="analyze()"> 50,000 - 80,000 руб<br>
+        <input type="radio" name="income" class="btn-red" onclick="analyze()"> Меньше 50,000 руб
+    </div>
+
+    <label>Отношение руководства к работе:</label>
+    <div class="options">
+        <input type="radio" name="leadership" class="btn-green" onclick="analyze()"> Всегда хвалят и помогают<br>
+        <input type="radio" name="leadership" class="btn-yellow" onclick="analyze()"> Не хвалят, но и не хейтят<br>
+        <input type="radio" name="leadership" class="btn-red" onclick="analyze()"> Всё делаешь не так и не то
+    </div>
+
+    <label>Коллектив:</label>
+    <div class="options">
+        <input type="radio" name="team" class="btn-green" onclick="analyze()"> Дружный<br>
+        <input type="radio" name="team" class="btn-yellow" onclick="analyze()"> Нейтральный<br>
+        <input type="radio" name="team" class="btn-red" onclick="analyze()"> Токсичный
+    </div>
+
+    <label>Удаленность от дома:</label>
+    <div class="options">
+        <input type="radio" name="distance" class="btn-green" onclick="analyze()"> 10-30 мин<br>
+        <input type="radio" name="distance" class="btn-yellow" onclick="analyze()"> 30-60 мин<br>
+        <input type="radio" name="distance" class="btn-red" onclick="analyze()"> 60-90 мин
+    </div>
+
+    <label>Парковка:</label>
+    <div class="options">
+        <input type="radio" name="parking" class="btn-green" onclick="analyze()"> Бесплатная и удобная<br>
+        <input type="radio" name="parking" class="btn-yellow" onclick="analyze()"> Есть, но неудобная<br>
+        <input type="radio" name="parking" class="btn-red" onclick="analyze()"> Нет или платная
+    </div>
+
+    <label>Режим работы:</label>
+    <div class="options">
+        <input type="radio" name="work_hours" class="btn-green" onclick="analyze()"> До 8 часов<br>
+        <input type="radio" name="work_hours" class="btn-yellow" onclick="analyze()"> Иногда переработки<br>
+        <input type="radio" name="work_hours" class="btn-red" onclick="analyze()"> Всегда больше 8 часов
+    </div>
+
+    <label>Карьерный рост:</label>
+    <div class="options">
+        <input type="radio" name="career" class="btn-green" onclick="analyze()"> Перспективы роста<br>
+        <input type="radio" name="career" class="btn-yellow" onclick="analyze()"> Нет перспектив, но возможен зарплатный рост<br>
+        <input type="radio" name="career" class="btn-red" onclick="analyze()"> Нет никаких перспектив
+    </div>
+
+    <label>Холодные звонки:</label>
+    <div class="options">
+        <input type="radio" name="cold_calls" class="btn-green" onclick="analyze()"> Нет<br>
+        <input type="radio" name="cold_calls" class="btn-yellow" onclick="analyze()"> Есть, но мало<br>
+        <input type="radio" name="cold_calls" class="btn-red" onclick="analyze()"> Постоянные и много
+    </div>
+
+    <label>Помощь и введение в должность:</label>
+    <div class="options">
+        <input type="radio" name="onboarding" class="btn-green" onclick="analyze()"> Есть с куратором<br>
+        <input type="radio" name="onboarding" class="btn-yellow" onclick="analyze()"> В формате "читай тут, смотри там, спроси у того"<br>
+        <input type="radio" name="onboarding" class="btn-red" onclick="analyze()"> Вообще нет — уже должен все знать
+    </div>
+
+    <label>Видимость результата работы:</label>
+    <div class="options">
+        <input type="radio" name="results" class="btn-green" onclick="analyze()"> Четко понимаешь, что сделал и можно оценить<br>
+        <input type="radio" name="results" class="btn-yellow" onclick="analyze()"> Делаешь что-то, результат непонятен<br>
+        <input type="radio" name="results" class="btn-red" onclick="analyze()"> Делаешь бесполезную работу
+    </div>
+
+    <label>Четкие критерии оценки работы:</label>
+    <div class="options">
+        <input type="radio" name="evaluation" class="btn-green" onclick="analyze()"> Есть регламент и KPI<br>
+        <input type="radio" name="evaluation" class="btn-yellow" onclick="analyze()"> Критерии расплывчатые — всегда можно придраться<br>
+        <input type="radio" name="evaluation" class="btn-red" onclick="analyze()"> Работа ради работы
+    </div>
+
+    <label>Порядочность компании:</label>
+    <div class="options">
+        <input type="radio" name="honesty" class="btn-green" onclick="analyze()"> Своевременная выплата как обещали<br>
+        <input type="radio" name="honesty" class="btn-yellow" onclick="analyze()"> Иногда несовпадает, но некритично<br>
+        <input type="radio" name="honesty" class="btn-red" onclick="analyze()"> Обещают одно, а платят другое
+    </div>
+
+    <label>Социальный пакет:</label>
+    <div class="options">
+        <input type="radio" name="benefits" class="btn-green" onclick="analyze()"> Полный пакет<br>
+        <input type="radio" name="benefits" class="btn-yellow" onclick="analyze()"> Базовый пакет<br>
+        <input type="radio" name="benefits" class="btn-red" onclick="analyze()"> Никаких льгот
+    </div>
+
+    <label>Организация рабочего места:</label>
+    <div class="options">
+        <input type="radio" name="workspace" class="btn-green" onclick="analyze()"> Комфортные условия<br>
+        <input type="radio" name="workspace" class="btn-yellow" onclick="analyze()"> Стандартные условия<br>
+        <input type="radio" name="workspace" class="btn-red" onclick="analyze()"> Неудобные или плохие условия
+    </div>
+
+    <label>Корпоративная культура:</label>
+    <div class="options">
+        <input type="radio" name="culture" class="btn-green" onclick="analyze()"> Здоровая и поддерживающая<br>
+        <input type="radio" name="culture" class="btn-yellow" onclick="analyze()"> Нейтральная, считай что нет<br>
+        <input type="radio" name="culture" class="btn-red" onclick="analyze()"> Агрессивная и навязывающая свои ценности
+    </div>
+
+    <label>Удаленная работа:</label>
+    <div class="options">
+        <input type="radio" name="remote" class="btn-green" onclick="analyze()"> Полностью гибридный или удаленный формат<br>
+        <input type="radio" name="remote" class="btn-yellow" onclick="analyze()"> Редкая возможность удаленной работы<br>
+        <input type="radio" name="remote" class="btn-red" onclick="analyze()"> Нет удаленной работы
+    </div>
+
+    <label>Компетенции работника:</label>
+    <div class="options">
+        <input type="radio" name="skills" class="btn-green" onclick="analyze()"> Соответствуют работе 80-100%<br>
+        <input type="radio" name="skills" class="btn-yellow" onclick="analyze()"> Есть база, но стоит подтянуть навыки<br>
+        <input type="radio" name="skills" class="btn-red" onclick="analyze()"> Нет навыков, нужно учиться с нуля
+    </div>
+
+    <label>Питание:</label>
+    <div class="options">
+        <input type="radio" name="food" class="btn-green" onclick="analyze()"> Бесплатное на работе<br>
+        <input type="radio" name="food" class="btn-yellow" onclick="analyze()"> Есть рядом, но платно или кухня в офисе<br>
+        <input type="radio" name="food" class="btn-red" onclick="analyze()"> Нет ни кухни, ни мест в шаговой доступности
+    </div>
+
+</div>
+
+<div class="result" id="result">Выберите параметры для оценки условий работы.</div>
+
+</body>
+</html>
